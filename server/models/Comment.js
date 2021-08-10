@@ -4,15 +4,15 @@ const Schema = mongoose.Schema;
 const commentSchema = mongoose.Schema({
     
     writer:{
-        type: Schema.Types.Objected,
+        type: Schema.Types.ObjectId,
         ref:'User'
     },
     postId:{
-        type: Schema.Types.Objected,
+        type: Schema.Types.ObjectId,
         ref:'Video'
     },
     responseTo:{
-        type: Schema.Types.Objected,
+        type: Schema.Types.ObjectId,
         ref:'User'
     },
     content:{
