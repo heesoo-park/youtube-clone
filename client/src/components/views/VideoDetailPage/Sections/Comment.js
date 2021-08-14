@@ -3,6 +3,7 @@ import Axios from 'axios'
 import { Button, Input } from 'antd';
 import {useSelector} from 'react-redux';
 import SingleComment from './SingleComment';
+import ReplyComment from './ReplyComment';
 
 const { TextArea } = Input;
 
@@ -31,7 +32,7 @@ function Comment(props) {
             .then(response => {
                 if(response.data.success) {
                     console.log(response.data.result)
-
+                    setcommentValue("")
                     props.refreshFunction(response.data.result)
                 } else {
                     alert('코멘트를 저장하지 못했습니다.')
@@ -49,8 +50,9 @@ function Comment(props) {
 
             {props.commentLists && props.commentLists.map((comment, index)=> (
                 (!comment.responseTo &&
-                    <React.Fragment key={comment._id} >
-                        <SingleComment  comment={props.comment} postId={props.postId} refreshFunction={props.refreshFunction}/>
+                    <React.Fragment key={index} >
+                        <SingleComment refreshFunction={props.refreshFunction} comment={comment} postId={props.postId} />
+                        <ReplyComment refreshFunction={props.refreshFunction} parentCommentId={comment._id} postId={props.postId} commentLists={props.commentLists}/>
                     </React.Fragment>
                     
                 )
